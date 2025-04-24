@@ -4,6 +4,10 @@ import React from 'react'
 type Props = {}
 
 const HomeScreen = (props: Props) => {
+
+  const getProduct = () =>{
+    
+  }
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
