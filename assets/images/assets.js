@@ -17,7 +17,7 @@ import khalti1 from './khalti.jpg'
 import logo from './logo.png';
 ;
 
-export const assets = {
+ const assets = {
   kitchen,
   smartphone,
   smartwatch,
@@ -35,7 +35,7 @@ export const assets = {
   parcel,
 }
 
-  export const categories =[
+ const categories =[
   {
     category: "Clothing",
     icon: cloth
@@ -73,3 +73,5 @@ export const assets = {
   }
   
 ]
+
+export default {assets,categories}

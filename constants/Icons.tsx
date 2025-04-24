@@ -1,5 +1,7 @@
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet } from "react-native";
+import { Colors } from "@/constants/Colors";
 
 export const icon = {
   index: ({ color }: { color: string }) => (
@@ -10,7 +12,7 @@ export const icon = {
     <Ionicons name="search-outline" size={22} color={color} />
   ),
 
-  notification: ({ color }: { color: string }) => (
+  notifications: ({ color }: { color: string }) => (
     <Ionicons name="notifications-outline" size={22} color={color} />
   ),
 
@@ -21,11 +23,16 @@ export const icon = {
   profile: ({ color }: { color: string }) => (
     <Image
       source={{ uri: "https://xsgames.co/randomusers/avatar.php?g=male" }}
-      style={{ width: 22, height: 22, borderRadius: 11 }}
+      style={[styles.avatar, { borderColor: color }]}
     />
   ),
 };
 
 const styles = StyleSheet.create({
-  // Add styles if needed
+  avatar: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+  },
 });

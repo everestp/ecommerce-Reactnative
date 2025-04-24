@@ -4,6 +4,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  View,
 } from "react-native";
 import { icon } from "@/constants/Icons";
 import { Colors } from "@/constants/Colors";
@@ -23,14 +24,27 @@ const TabBarButton: React.FC<Props> = ({
   routeName,
   label,
 }) => {
+  const color = isFocused ? Colors.primary : Colors.gray;
+
   return (
     <Pressable
       onPress={onPress}
       onLongPress={onLongPress}
       style={styles.tabbarBtn}
     >
-   
-      <Text style={{ color: isFocused ? "#673ab7" : "#222" }}>{label}</Text>
+        {/* Cart Badge */}
+        {
+            routeName =='cart' &&(
+        <View style={styles.badgeWrapper}>
+            <Text style={styles.badgeText}>3</Text>
+        </View>
+
+            )
+        }
+      <View style={styles.iconContainer}>
+        {icon[routeName.toLowerCase()]?.({ color })}
+      </View>
+      <Text style={[styles.label, { color }]}>{label}</Text>
     </Pressable>
   );
 };
@@ -40,8 +54,29 @@ export default TabBarButton;
 const styles = StyleSheet.create({
   tabbarBtn: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    gap: 5, // Ensure `gap` is supported on the RN version you're using
+    justifyContent: "center",
+    paddingVertical: 8,
   },
+  iconContainer: {
+    marginBottom: 2,
+  },
+  label: {
+    fontSize: 12,
+    fontWeight: "500",
+  },
+  badgeWrapper :{
+    position :'absolute',
+    backgroundColor :Colors.highlight,
+    top :-5,
+    right :20,
+    paddingVertical :2,
+    paddingHorizontal :6,
+    borderRadius :10,
+    zIndex:10
+  },
+  badgeText:{
+color :Colors.black,
+fontSize :12
+  }
 });

@@ -1,57 +1,114 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { ProductType } from '@/types/type'
-import { FlatList } from 'react-native-gesture-handler'
-import { Stack } from 'expo-router'
-import Header from '@/components/Header'
-import { Image } from 'react-native'
-import ProductItem from '@/components/ProductItem'
-type Props = {}
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { ProductType } from '@/types/type';
+import { FlatList } from 'react-native-gesture-handler';
+import { Stack } from 'expo-router';
+import Header from '@/components/Header';
+import ProductItem from '@/components/ProductItem';
+import { Colors } from '@/constants/Colors';
+import { Image } from 'react-native';
+type Props = {};
 
 const HomeScreen = (props: Props) => {
- const [product ,setProduct] =useState<ProductType[]>([])
+  const [product, setProduct] = useState<ProductType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
- const [isLoading ,setIsLoading]=useState<boolean>(true)
-  const getProduct =  async () => {
-  const URL ='https://foodapp-springboot-2.onrender.com/api/foods';
-  const response = await axios.get(URL)
-  setProduct(response.data)
-  console.log(response.data)
-  }
-  useEffect(()=>{
-getProduct()
-  },[])
+  const getProduct = async () => {
+    const URL = 'https://foodapp-springboot-2.onrender.com/api/foods';
+    const response = await axios.get(URL);
+    setProduct(response.data);
+    console.log(response.data);
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
+
   return (
     <>
-    <Stack.Screen options={{
-      headerShown :true,
-      header : ()=><Header/>
-    }}/>
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <FlatList
-       data={product} 
-       numColumns={2}
-       columnWrapperStyle={{justifyContent :'space-between', marginBottom :20}}
-       keyExtractor={(item)=> item.id.toString()}
-        renderItem={({index,item})=>(
-       
-<ProductItem item={item} />
-      )}/> 
-    </View>
-    </>
-  )
-}
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          header: () => <Header />,
+        }}
+      />
+      <View style={styles.container}>
+        {/* Section Title */}
+        <View style={styles.titleWrapper}>
+          <Text style={styles.title}>For You</Text>
+          <TouchableOpacity>
+            <Text style={styles.titleBtn}>See All</Text>
+          </TouchableOpacity>
+        </View>
 
-export default HomeScreen
+        {/* Product List */}
+        <FlatList
+          data={product}
+          numColumns={2}
+          columnWrapperStyle={{ justifyContent: 'space-between', marginBottom: 20 }}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ index, item }) => (
+            <View style={styles.itemWrapper}>
+              {/* Outer Wrapper */}
+              <View style={{marginHorizontal :20,marginBottom:10}}>
+                {/* <Image 
+                source ={require("@/assets/images/sale-banner.jpg")}
+              style ={{width :'100%',height :150 ,borderRadius :15}}
+                /> */}
+              </View>
+
+              {/* Product Item */}
+              <ProductItem item={item} index={index} />
+            </View>
+          )}
+        />
+      </View>
+    </>
+  );
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-   
-  marginHorizontal :20
+    marginHorizontal: 20,
   },
-
-   
-  
-})
+  titleWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '600',
+    letterSpacing: 0.6,
+    color: Colors.black,
+  },
+  titleBtn: {
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0.6,
+    color: Colors.black,
+  },
+  itemWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  extraView: {
+    width: '100%',
+    height: 40,
+    backgroundColor: Colors.primary,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  extraText: {
+    fontSize: 14,
+    color: '#fff',
+    fontWeight: '600',
+  },
+});

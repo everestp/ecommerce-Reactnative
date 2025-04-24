@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { CategoryType } from '@/types/type'
 
 type Props = {
-    categorirs
+    categories :CategoryType[]
 }
 
 const Cartegories = (props: Props) => {
