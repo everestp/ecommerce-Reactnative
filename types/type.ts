@@ -1,10 +1,13 @@
+
+
+
 export interface ProductType {
-  id: number;
-  title: string;
-  price: number;
+  id: string;
+  name: string;
   description: string;
-  images: string[];
-  category: Category;
+  imageUrl: string;
+  price: number;
+  category: string;
 }
 
 interface Category {

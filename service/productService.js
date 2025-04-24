@@ -1,7 +1,8 @@
 import axios from "axios";
 import { AP_URL } from "./baseURl";
+
 const API_URL = `${AP_URL}/api/foods`;
- export const addFood = async(foodData,image) => {
+export const addFood = async(foodData,image) => {
     const formData = new FormData();
     formData.append('food', JSON.stringify(foodData));
     formData.append('file',image);
@@ -17,7 +18,7 @@ const API_URL = `${AP_URL}/api/foods`;
 
    
 }
-export const getFoodList = async ()=>{
+export default  getProductList = async ()=>{
 try {
     const response =  await axios.get(API_URL);
         return response.data;
