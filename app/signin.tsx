@@ -1,15 +1,22 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { Link, router, Stack } from "expo-router";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import InputField from "@/components/InputField";
 import SocialLoginButton from "@/components/SocialLoginButton";
+import { login } from "@/service/AuthService";
+import { StoreContext } from "@/context/StoreContext";
 
 type Props = {};
 
 const SignInScreen = (props: Props) => {
+  
+ const  hadndleSubmit = async()=>{
+  const response = await login
+ }
+  
   return (
     <>
       <Stack.Screen

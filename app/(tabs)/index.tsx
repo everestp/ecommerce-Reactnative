@@ -8,6 +8,9 @@ import Header from '@/components/Header';
 import ProductItem from '@/components/ProductItem';
 import { Colors } from '@/constants/Colors';
 import { Image } from 'react-native';
+import { StoreContextProvider } from '@/context/StoreContext';
+
+
 type Props = {};
 
 const HomeScreen = (props: Props) => {
@@ -26,6 +29,8 @@ const HomeScreen = (props: Props) => {
   }, []);
 
   return (
+    <StoreContextProvider>
+
     <>
       <Stack.Screen
         options={{
@@ -40,31 +45,28 @@ const HomeScreen = (props: Props) => {
           <TouchableOpacity>
             <Text style={styles.titleBtn}>See All</Text>
           </TouchableOpacity>
+         
         </View>
 
         {/* Product List */}
         <FlatList
           data={product}
           numColumns={2}
-          columnWrapperStyle={{ justifyContent: 'space-between', marginBottom: 20 }}
+          columnWrapperStyle={{ justifyContent: 'space-between' }}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ index, item }) => (
             <View style={styles.itemWrapper}>
               {/* Outer Wrapper */}
-              <View style={{marginHorizontal :20,marginBottom:10}}>
-                {/* <Image 
-                source ={require("@/assets/images/sale-banner.jpg")}
-              style ={{width :'100%',height :150 ,borderRadius :15}}
-                /> */}
-              </View>
+            
 
               {/* Product Item */}
-              <ProductItem item={item} index={index} />
+              <ProductItem item={item} index={index} id={item.id}/>
             </View>
           )}
         />
       </View>
     </>
+    </StoreContextProvider>
   );
 };
 

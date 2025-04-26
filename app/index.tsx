@@ -52,6 +52,7 @@ const WelcomeScreen = (props: Props) => {
       </ImageBackground>
     </>
   );
+  
 };
 
 export default WelcomeScreen;

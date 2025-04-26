@@ -1,0 +1,1 @@
+ export  const AP_URL :string = 'https://foodapp-springboot-2.onrender.com'

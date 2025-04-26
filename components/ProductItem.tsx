@@ -1,36 +1,41 @@
 import { Dimensions, StyleSheet, Text, View, Image, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ProductType } from "@/types/type";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants/Colors";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Link } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StoreContext } from "@/context/StoreContext";
 
 type Props = {
   item: ProductType;
   index: number;
+  id:String
   
 };
 
 const width = Dimensions.get("window").width - 40;
 
-const ProductItem = ({ item, index }: Props) => {
+const ProductItem = ({ item, index ,id}: Props) => {
   const [liked, setLiked] = useState(false);
-
+ 
   const toggleLike = () => {
     setLiked(!liked);
     // Optionally handle backend update or local state
   };
 
   return (
+    <SafeAreaView>
+
     <Link href={`/product-details/${item.id}`} asChild>
         <TouchableOpacity>
 
     <Animated.View
       style={styles.card}
       entering={FadeInDown.delay(300 + index * 100).duration(300)}
-    >
+      >
       <View style={styles.imageWrapper}>
         <Image source={{ uri: item.imageUrl }} style={styles.productImg} />
 
@@ -39,7 +44,7 @@ const ProductItem = ({ item, index }: Props) => {
             name={liked ? "heart" : "heart-outline"}
             size={20}
             color={liked ? Colors.primary : Colors.black}
-          />
+            />
         </Pressable>
       </View>
 
@@ -50,6 +55,7 @@ const ProductItem = ({ item, index }: Props) => {
     </Animated.View>
         </TouchableOpacity>
     </Link>
+            </SafeAreaView>
   );
 };
 
@@ -60,7 +66,7 @@ const styles = StyleSheet.create({
     width: width / 2 - 10,
     backgroundColor: "#fff",
     borderRadius: 16,
-    marginBottom: 20,
+    marginBottom: 1,
     padding: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
