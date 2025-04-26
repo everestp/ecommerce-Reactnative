@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ToastAndroid, View } from "react-native";
 import React, { useContext } from "react";
 import { Link, router, Stack } from "expo-router";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
@@ -7,16 +7,19 @@ import { Colors } from "@/constants/Colors";
 import InputField from "@/components/InputField";
 import SocialLoginButton from "@/components/SocialLoginButton";
 import { login } from "@/service/AuthService";
-import { StoreContext } from "@/context/StoreContext";
+import Toast from "react-native-toast-message";
+
 
 type Props = {};
 
 const SignInScreen = (props: Props) => {
-  
- const  hadndleSubmit = async()=>{
-  const response = await login
- }
-  
+   const showToast = ()=>{
+    Toast.show({
+    type :"success",
+    text1:"Success",
+    text2:"Logged In Success"
+    })
+   }
   return (
     <>
       <Stack.Screen
@@ -30,6 +33,7 @@ const SignInScreen = (props: Props) => {
         }}
       />
       <View style={styles.container}>
+      <Toast/>
         <Text style={styles.title}>Login to Your Account</Text>
 
         {/* email Address */}
@@ -50,6 +54,7 @@ const SignInScreen = (props: Props) => {
         {/* confirm password */}
       
         <TouchableOpacity style={styles.btn}  onPress={() => {
+        showToast()
           router.dismissAll();
           router.push('/(tabs)');
         }} >
@@ -66,7 +71,7 @@ const SignInScreen = (props: Props) => {
         <View style={styles.divider}/>
 
           <SocialLoginButton emailHref={'/signin'}/>
-        
+       {/* <Toast/> */}
       </View>
     </>
   );

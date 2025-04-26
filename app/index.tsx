@@ -16,6 +16,8 @@ import SocialLoginButton from "@/components/SocialLoginButton";
 type Props = {};
 
 const WelcomeScreen = (props: Props) => {
+
+
   return (
     <>
       <Stack.Screen options={{ headerShown: false }} />
